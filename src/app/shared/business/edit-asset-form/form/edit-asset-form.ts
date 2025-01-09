@@ -18,6 +18,10 @@ import {
   EditAssetFormModel,
   EditAssetFormValue,
 } from './model/edit-asset-form-model';
+import {AssetCustomFormBuilder} from "./asset-custom-form-builder";
+import {AssetCustomFormModel} from "./model/asset-custom-form-model";
+import {CustomJsonldProperty} from "../../../../core/services/models/custom/custom-jsonld-property";
+import {UNDERPIN_MODEL_DATA} from "../../../../core/services/models/custom/underpin-model-data";
 
 /**
  * Handles AngularForms for Edit Asset Form
@@ -31,6 +35,8 @@ export class EditAssetForm {
   datasource!: EditAssetFormModel['datasource'];
 
   advanced!: EditAssetFormModel['advanced'];
+
+  custom!: EditAssetFormModel['custom'];
 
   get value(): EditAssetFormValue {
     return this.all.value;
@@ -65,6 +71,7 @@ export class EditAssetForm {
     private assetGeneralFormBuilder: AssetGeneralFormBuilder,
     private assetDatasourceFormBuilder: AssetDatasourceFormBuilder,
     private assetAdvancedFormBuilder: AssetAdvancedFormBuilder,
+    private assetCustomFormBuilder: AssetCustomFormBuilder,
     private activeFeatureSet: ActiveFeatureSet,
     private expressionFormControls: ExpressionFormControls,
   ) {}
@@ -74,6 +81,7 @@ export class EditAssetForm {
     this.general = this.all.controls.general;
     this.datasource = this.all.controls.datasource;
     this.advanced = this.all.controls.advanced;
+    this.custom = this.all.controls.custom;
   }
 
   buildFormGroup(initial: EditAssetFormValue): FormGroup<EditAssetFormModel> {
@@ -86,6 +94,9 @@ export class EditAssetForm {
     const datasource: FormGroup<AssetDatasourceFormModel> =
       this.assetDatasourceFormBuilder.buildFormGroup(initial.datasource!);
 
+    const custom: FormGroup<AssetCustomFormModel> =
+      this.assetCustomFormBuilder.buildFormGroup(initial.custom!);
+
     const formGroup: FormGroup<EditAssetFormModel> =
       this.formBuilder.nonNullable.group({
         mode: [initial.mode as AssetEditDialogMode],
@@ -93,6 +104,7 @@ export class EditAssetForm {
         policyControls: this.expressionFormControls.formGroup,
         general,
         datasource,
+        custom,
       });
 
     formGroup.controls.publishMode.valueChanges
@@ -110,6 +122,7 @@ export class EditAssetForm {
       mode: true,
       publishMode: true,
       advanced: true,
+      custom: true,
       general: true,
       datasource: true,
     }));
@@ -182,5 +195,32 @@ export class EditAssetForm {
   onReferenceFileUrlsRemoveClick(buttonClickedEvent: Event, index: number) {
     buttonClickedEvent.preventDefault();
     this.advanced!.controls.referenceFileUrls.removeAt(index);
+  }
+
+  fetchCustomDataModelStrings(id:string, property:string): string{
+    if (!UNDERPIN_MODEL_DATA || !Array.isArray(UNDERPIN_MODEL_DATA)) {
+      console.error("UNDERPIN_MODEL_DATA is not properly initialized:", UNDERPIN_MODEL_DATA);
+      return '';
+    }
+
+    let customProperty: CustomJsonldProperty| undefined = UNDERPIN_MODEL_DATA.find(property => property.id === id);
+
+    // @ts-ignore
+    return customProperty[property]
+  }
+
+  onCustomArrayItemAddClick(buttonClickedEvent: Event, property: string) {
+    buttonClickedEvent.preventDefault();
+    console.debug("Added item on: ", property);
+    // @ts-ignore
+    this.custom!.controls[property].push(
+      this.assetCustomFormBuilder.buildRequiredUrl(''),
+    );
+  }
+
+  onCustomArrayItemRemoveClick(buttonClickedEvent: Event, property: string, index: number) {
+    buttonClickedEvent.preventDefault();
+    // @ts-ignore
+    this.custom!.controls[property].removeAt(index);
   }
 }

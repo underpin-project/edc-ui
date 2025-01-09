@@ -571,6 +571,156 @@
       </ng-container>
     </edit-asset-form-group>
 
+    <!-- UNDERPIN PROPERTIES -->
+    <edit-asset-form-group
+      [myTitle]="'Custom Properties'"
+      [description]="'Fill out additional properties'">
+      <edit-asset-form-input
+        fieldId="create-asset-form-dcat-conformsTo"
+        [placeholder]="
+              form.fetchCustomDataModelStrings('dcat_conformsTo', 'placeholder')
+            "
+        [tooltip]="form.fetchCustomDataModelStrings('dcat_conformsTo', 'description_en')"
+        [label]="form.fetchCustomDataModelStrings('dcat_conformsTo', 'label_en')"
+        [ctrl]="form.custom.controls.dcat_conformsTo">
+
+      </edit-asset-form-input>
+
+      <div class="mt-4">
+        <edit-asset-form-label
+          [label]="form.fetchCustomDataModelStrings('dcat_theme', 'label_en')">
+        </edit-asset-form-label>
+        <button
+          class="!scale-[0.9]"
+          mat-icon-button
+          matSuffix
+          matTooltipPosition="right"
+          [matTooltip]="form.fetchCustomDataModelStrings('dcat_theme', 'description_en')">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+        <div class="mt-6"></div>
+        <div
+          *ngFor="
+              let item of form.custom.controls.dcat_theme.controls;
+              let i = index
+            "
+          class="flex flex-row space-x-2 -mt-2">
+          <mat-form-field class="grow">
+            <mat-label>Theme</mat-label>
+            <input
+              matInput
+              [placeholder]="form.fetchCustomDataModelStrings('dcat_theme', 'placeholder')"
+              [formControl]="item" />
+          </mat-form-field>
+          <button
+            mat-button
+            color="warn"
+            style="height: 42px; margin-top: 4px; margin-left: 8px"
+            (click)="form.onCustomArrayItemRemoveClick($event, 'dcat_theme', i)">
+            {{ 'general.remove' | translate }}
+          </button>
+        </div>
+        <div class="-mt-2">
+          <button
+            mat-button
+            color="accent"
+            (click)="form.onCustomArrayItemAddClick($event, 'dcat_theme')">
+            Add Item
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <edit-asset-form-label
+          [label]="form.fetchCustomDataModelStrings('dcterms_type', 'label_en')">
+        </edit-asset-form-label>
+        <button
+          class="!scale-[0.9]"
+          mat-icon-button
+          matSuffix
+          matTooltipPosition="right"
+          [matTooltip]="form.fetchCustomDataModelStrings('dcterms_type', 'description_en')">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+        <div class="mt-6"></div>
+        <div
+          *ngFor="
+              let item of form.custom.controls.dcterms_type.controls;
+              let i = index
+            "
+          class="flex flex-row space-x-2 -mt-2">
+          <mat-form-field class="grow">
+            <mat-label>Type</mat-label>
+            <input
+              matInput
+              [placeholder]="form.fetchCustomDataModelStrings('dcterms_type', 'placeholder')"
+              [formControl]="item" />
+          </mat-form-field>
+          <button
+            mat-button
+            color="warn"
+            style="height: 42px; margin-top: 4px; margin-left: 8px"
+            (click)="form.onCustomArrayItemRemoveClick($event, 'dcterms_type', i)">
+            {{ 'general.remove' | translate }}
+          </button>
+        </div>
+        <div class="-mt-2">
+          <button
+            mat-button
+            color="accent"
+            (click)="form.onCustomArrayItemAddClick($event, 'dcterms_type')">
+            Add Item
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <edit-asset-form-label
+          [label]="form.fetchCustomDataModelStrings('prov_wasDerivedFrom', 'label_en')">
+        </edit-asset-form-label>
+        <button
+          class="!scale-[0.9]"
+          mat-icon-button
+          matSuffix
+          matTooltipPosition="right"
+          [matTooltip]="form.fetchCustomDataModelStrings('prov_wasDerivedFrom', 'description_en')">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+        <div class="mt-6"></div>
+        <div
+          *ngFor="
+              let item of form.custom.controls.prov_wasDerivedFrom.controls;
+              let i = index
+            "
+          class="flex flex-row space-x-2 -mt-2">
+          <mat-form-field class="grow">
+            <mat-label>Was Derived From</mat-label>
+            <input
+              matInput
+              [placeholder]="form.fetchCustomDataModelStrings('prov_wasDerivedFrom', 'placeholder')"
+              [formControl]="item" />
+          </mat-form-field>
+          <button
+            mat-button
+            color="warn"
+            style="height: 42px; margin-top: 4px; margin-left: 8px"
+            (click)="form.onCustomArrayItemRemoveClick($event, 'prov_wasDerivedFrom', i)">
+            {{ 'general.remove' | translate }}
+          </button>
+        </div>
+        <div class="-mt-2">
+          <button
+            mat-button
+            color="accent"
+            (click)="form.onCustomArrayItemAddClick($event, 'prov_wasDerivedFrom')">
+            Add Item
+          </button>
+        </div>
+      </div>
+
+    </edit-asset-form-group>
+    <!-- END OF UNDERPIN PROPERTIES -->
+
     <edit-asset-form-group
       *ngIf="form.general.value.showAdvancedFields"
       [description]="

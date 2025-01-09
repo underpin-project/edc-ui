@@ -5,6 +5,8 @@ import {LanguageSelectItemService} from '../../../form-elements/language-select/
 import {AssetDatasourceFormValue} from './model/asset-datasource-form-model';
 import {EditAssetFormValue} from './model/edit-asset-form-model';
 
+import {UNDERPIN_MODEL_DATA} from "../../../../core/services/models/custom/underpin-model-data";
+import {CustomJsonldProperty} from "../../../../core/services/models/custom/custom-jsonld-property";
 /**
  * Handles AngularForms for Edit Asset Form
  */
@@ -48,6 +50,7 @@ export class EditAssetFormInitializer {
         referenceFilesDescription: '',
         temporalCoverage: {from: null, toInclusive: null},
       },
+      custom: this.underpinCustomModelOnCreate(),
       datasource: this.emptyHttpDatasource(),
     };
   }
@@ -88,9 +91,68 @@ export class EditAssetFormInitializer {
           toInclusive: asset.temporalCoverageToInclusive,
         },
       },
+      custom: this.underpinCustomModelOnEdit(asset),
       datasource: this.emptyEditDatasource(asset),
     };
   }
+
+  private underpinCustomModelOnEdit(asset: UiAssetMapped): Object{
+    const customModel = {}
+    for(const property of UNDERPIN_MODEL_DATA){
+      // @ts-ignore
+      const value = this._unstringify(asset.customJsonLdProperties.find(customProperty => customProperty.key === property.rdf_property_mapping)?.value);
+      if(value){
+        //TODO: fixing compacted array issue
+        if(property.multipleValues && typeof value==="string"){
+          // @ts-ignore
+          customModel[property.id] = [value];
+        }
+        else{
+          // @ts-ignore
+          customModel[property.id] = value;
+        }
+
+      }
+      else{
+        // @ts-ignore
+        customModel[property.id] = this.underpinCustomInitializer(property)
+      }
+
+    }
+    return customModel;
+  }
+
+  private _unstringify(jsonObject: string){
+    try{
+      return JSON.parse(jsonObject)
+    }
+    catch (syntaxError){
+      //this is probably just a string, we return it as-is
+      return jsonObject
+    }
+  }
+
+  private underpinCustomInitializer(property: CustomJsonldProperty){
+    if(property.multipleValues){
+      // @ts-ignore
+      return [];
+    }
+    else{
+      // @ts-ignore
+      return '';
+    }
+  }
+
+  private underpinCustomModelOnCreate(): Object{
+    const customModel = {}
+    for(const property of UNDERPIN_MODEL_DATA){
+        // @ts-ignore
+        customModel[property.id] = this.underpinCustomInitializer(property);
+    }
+    return customModel;
+  }
+
+
 
   private emptyHttpDatasource(): AssetDatasourceFormValue {
     return {

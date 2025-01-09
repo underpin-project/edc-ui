@@ -9,6 +9,7 @@ import {AssetDatasourceFormModel} from './asset-datasource-form-model';
 import {AssetEditDialogMode} from './asset-edit-dialog-mode';
 import {AssetGeneralFormModel} from './asset-general-form-model';
 import {DataOfferPublishMode} from './data-offer-publish-mode';
+import {AssetCustomFormModel} from "./asset-custom-form-model";
 
 /**
  * Form Model for Edit Asset Form
@@ -20,6 +21,7 @@ export interface EditAssetFormModel {
   general: FormGroup<AssetGeneralFormModel>;
   datasource: FormGroup<AssetDatasourceFormModel>;
   advanced?: FormGroup<AssetAdvancedFormModel>;
+  custom: FormGroup<AssetCustomFormModel>;
 }
 
 /**

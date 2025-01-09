@@ -5,6 +5,7 @@ import {AssetDatasourceFormBuilder} from './form/asset-datasource-form-builder';
 import {AssetGeneralFormBuilder} from './form/asset-general-form-builder';
 import {EditAssetForm} from './form/edit-asset-form';
 import {EditAssetFormInitializer} from './form/edit-asset-form-initializer';
+import {AssetCustomFormBuilder} from "./form/asset-custom-form-builder";
 
 export const editAssetFormRequiredViewProviders = [
   EditAssetFormInitializer,
@@ -13,5 +14,6 @@ export const editAssetFormRequiredViewProviders = [
   AssetGeneralFormBuilder,
   AssetDatasourceFormBuilder,
   AssetAdvancedFormBuilder,
+  AssetCustomFormBuilder,
   ...policyFormRequiredViewProviders,
 ];
