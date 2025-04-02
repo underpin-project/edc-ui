@@ -11,7 +11,7 @@ import {
  * (UNDERPIN Properties)
  */
 export interface AssetCustomFormModel {
-  dcat_conformsTo: FormControl<string>;
+  dcterms_conformsTo: FormControl<string>;
   dcat_theme: FormArray<FormControl<string>>;
   dcterms_type: FormArray<FormControl<string>>;
   prov_wasDerivedFrom: FormArray<FormControl<string>>;

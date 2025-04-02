@@ -1,4 +1,4 @@
-import {MDS_THEME, SOVITY_THEME} from './edc-ui-theme-data';
+import {MDS_THEME, SOVITY_THEME, UNDERPIN_THEME} from './edc-ui-theme-data';
 import {COMMUNITY_EDITION_FEATURES} from './feature-sets/community-edition-features';
 import {ENTERPRISE_EDITION_FEATURES} from './feature-sets/enterprise-edition-features';
 import {MDS_FEATURES} from './feature-sets/mds-features';
@@ -38,5 +38,11 @@ export const EDC_UI_PROFILE_DATA = inferEdcUiProfileType({
     ...SOVITY_THEME,
     routes: 'connector-ui',
     features: new Set([...MDS_FEATURES, ...ENTERPRISE_EDITION_FEATURES]),
+  },
+  'underpin-open-source': {
+    ...UNDERPIN_THEME,
+    routes: 'connector-ui',
+    features: new Set([
+      'logout-button']),
   },
 });

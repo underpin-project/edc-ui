@@ -13,3 +13,10 @@ export const MDS_THEME: EdcUiThemeConfig = {
   brandLogoSrc: '/assets/images/mds_logo.svg',
   brandLogoStyle: 'height: 57px; margin-top: 5px; margin-left: 5px;',
 };
+
+export const UNDERPIN_THEME: EdcUiThemeConfig = {
+  theme: 'theme-sovity',
+  brandFaviconSrc: '/assets/images/sovity_favicon-192x192.png',
+  brandLogoSrc: '/assets/images/underpin_logo.svg',
+  brandLogoStyle: 'width: 70%;',
+};

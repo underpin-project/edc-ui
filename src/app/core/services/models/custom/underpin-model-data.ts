@@ -2,12 +2,12 @@ import {CustomJsonldProperty} from "./custom-jsonld-property";
 
 export const UNDERPIN_MODEL_DATA: CustomJsonldProperty[] = [
   {
-    id:'dcat_conformsTo',
+    id:'dcterms_conformsTo',
     label_en:'Conforms to Schema',
     label_gr:'Ακολουθεί το σχήμα',
     description_en:'Use to define the data model the asset follows, in case of a CSV file this could be a CSVW description provided by the data modeler',
     description_gr:'Use to define the data model the asset follows, in case of a CSV file this could be a CSVW description provided by the data modeler',
-    rdf_property_mapping:'http://www.w3.org/ns/dcat#conformsTo',
+    rdf_property_mapping:'http://purl.org/dc/terms/conformsTo',
     type:'text',
     multipleValues: false,
     lookup_url:'',

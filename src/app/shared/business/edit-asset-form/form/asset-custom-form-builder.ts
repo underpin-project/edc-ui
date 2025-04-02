@@ -14,7 +14,7 @@ export class AssetCustomFormBuilder {
     return this.formBuilder.nonNullable.group(
 
       {
-        dcat_conformsTo: initial?.dcat_conformsTo!,
+        dcterms_conformsTo: initial?.dcterms_conformsTo!,
         dcat_theme: this.formBuilder.array(
           // @ts-ignore
           initial.dcat_theme.map((x) => this.buildRequiredUrl(x)) ?? [],
